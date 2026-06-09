@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E CONTAINER
+   ========================================================================== */
+.db-container {
+  font-family: 'Sora', sans-serif;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #fcfcfc; /* Fundo levemente off-white para destacar os cards brancos */
+}
+
+/* BANNER DE BOAS VINDAS (PREMIUM RE-DESIGN) */
+.db-welcome {
+  background: linear-gradient(135deg, #1D9E75 0%, #157A5A 100%); /* Gradiente sutil para dar profundidade */
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px rgba(29, 158, 117, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Detalhe estético de fundo no Banner */
+.db-welcome::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.db-welcome-text h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.db-welcome-text p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* CONTADOR NUMÉRICO (STREAK FLUIDO) */
+.db-streak {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 110px;
+  transition: transform 0.2s;
+}
+
+.db-streak:hover {
+  transform: scale(1.03);
+}
+
+.db-streak-num {
+  font-size: 42px;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  line-height: 1;
+}
+
+.db-streak-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ESTRUTURA DE GRADE (GRID DOS CONTEÚDOS)
+   ========================================================================== */
+.db-main-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; /* Coluna principal maior à esquerda, lateral à direita */
+  gap: 2rem;
+}
+
+.db-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* CABEÇALHOS DE SEÇÃO */
+.db-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.db-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.3px;
+}
+
+.db-see-all {
+  font-size: 13.5px;
+  color: #1D9E75;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.db-see-all:hover {
+  color: #0F6E56;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   LISTA DE ATIVIDADES / REVISÕES DO DIA
+   ========================================================================== */
+.db-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-activity-card {
+  background: #fff;
+  border: 1px solid #eef0f2;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.db-activity-card:hover {
+  border-color: #1D9E75;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Ícones customizados e arredondados */
+.db-activity-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.db-activity-icon.summary { background: #E1F5EE; color: #1D9E75; }
+.db-activity-icon.quiz { background: #E6F1FB; color: #3182CE; }
+.db-activity-icon.flash { background: #FAEEDA; color: #DD6B20; }
+
+.db-activity-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.db-activity-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.db-activity-meta {
+  font-size: 12.5px;
+  color: #718096;
+}
+
+/* BADGES DE STATUS E SELEÇÃO */
+.db-badge {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  flex-shrink: 0;
+  letter-spacing: 0.2px;
+}
+
+.db-badge.pending { background: #FFF5F5; color: #E53E3E; } /* Vermelho suave para pendente chama mais atenção que laranja */
+.db-badge.done { background: #E1F5EE; color: #0F6E56; }
+
+/* ==========================================================================
+   COLUNA LATERAL: PROGRESSO POR MATÉRIA (NOVO!)
+   ========================================================================== */
+.db-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.db-subject-card {
+  background: #fff;
+  border: 1px solid #eef0f2;
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-subject-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.db-subject-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.db-subject-percentage {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1D9E75;
+}
+
+/* Barra de progresso nativa em CSS */
+.db-progress-bar-bg {
+  background: #edf2f7;
+  height: 8px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.db-progress-bar-fill {
+  background: #1D9E75;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* LISTA VAZIA STYLING */
+.db-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fff;
+  border: 1px solid #eef0f2;
+  border-radius: 16px;
+  color: #a0aec0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.db-empty span {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.db-empty p {
+  font-size: 14px;
+  max-width: 250px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE INTELIGENTE
+   ========================================================================== */
+@media (max-width: 968px) {
+  /* Quebra o layout de duas colunas para uma coluna em tablets menores */
+  .db-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .db-container {
+    padding: 1.5rem 1.25rem 80px; 
+    gap: 1.5rem;
+  }
+
+  .db-welcome {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .db-welcome-text h2 {
+    font-size: 22px;
+  }
+
+  .db-streak-num {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .db-welcome {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 1.5rem;
+  }
+
+  .db-streak {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .db-activity-card {
+    padding: 1rem;
+    gap: 12px;
+  }
+}

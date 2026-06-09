@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap');
+
+/* NOTA: Não duplicamos o reset global (*, html, body) se ele já estiver no seu index.css */
+
+.rv-page {
+  font-family: 'Sora', sans-serif;
+  min-height: 100vh;
+  padding: 2.5rem; /* 1. AJUSTADO: Alinhado ao padrão de respiro (2.5rem) das outras telas */
+  max-width: 1200px; /* 2. AJUSTADO: Expandido para 1200px para sumir com o aspecto "espremido" */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* HEADER DA PÁGINA */
+.rv-header {
+  display: flex;
+  align-items: center; /* 3. AJUSTADO: Alinha verticalmente o título com o botão no centro */
+  justify-content: space-between;
+  margin-bottom: 2rem; /* 4. AJUSTADO: Mais espaçamento antes da busca */
+}
+
+.rv-title {
+  font-size: 24px; /* 5. AJUSTADO: De 20px para 24px para manter a hierarquia de títulos */
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.3px;
+}
+
+.rv-sub {
+  font-size: 14px; /* 6. AJUSTADO: De 13px para 14px */
+  color: #888;
+  margin-top: 4px;
+}
+
+/* BOTÃO ADD REVISION */
+.rv-add-btn {
+  background: #1D9E75;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; /* 7. AJUSTADO: 14px melhora o clique */
+  font-weight: 500;
+  padding: 0.75rem 1.25rem; /* 8. AJUSTADO: Botão mais robusto e profissional */
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.rv-add-btn:hover { 
+  background: #0F6E56; 
+}
+
+.rv-add-btn:active {
+  transform: scale(0.98); /* Pequeno efeito de clique */
+}
+
+/* BARRA DE PESQUISA */
+.rv-search-wrap {
+  position: relative;
+  margin-bottom: 2rem; /* 9. AJUSTADO: Espaço confortável antes do grid de cards */
+}
+
+.rv-search-icon {
+  position: absolute;
+  left: 16px; /* 10. AJUSTADO: Empurrado levemente para dentro */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px; /* 11. AJUSTADO: Lente de aumento mais visível */
+  color: #aaa; /* Garante uma cor suave para o ícone */
+  pointer-events: none;
+}
+
+.rv-search {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem; /* 12. AJUSTADO: Campo mais alto e com espaço perfeito para o ícone */
+  font-family: 'Sora', sans-serif;
+  font-size: 15px; /* 13. AJUSTADO: Texto de digitação maior e confortável */
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 12px; /* 14. AJUSTADO: Cantos suavemente mais arredondados */
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.rv-search:focus { 
+  border-color: #1D9E75;
+  box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.08); /* Sutil efeito de foco */
+}
+
+/* GRID DE CARDS */
+.rv-grid {
+  display: grid;
+  /* 15. MELHORIA CRUCIAL: minmax alterado de 260px para 280px para os cards respirarem em telas grandes */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 16px; /* 16. AJUSTADO: Mais espaço entre os blocos */
+}
+
+/* CARDS DE REVISÃO */
+.rv-card {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 16px; /* 17. AJUSTADO: Arredondamento modernizado */
+  padding: 1.25rem 1.5rem; /* 18. AJUSTADO: Mais preenchimento interno */
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.01);
+}
+
+.rv-card:hover { 
+  border-color: #1D9E75; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Efeito flutuante ao passar o mouse */
+}
+
+.rv-card-icon {
+  width: 44px; height: 44px; /* 19. AJUSTADO: Ícones ligeiramente maiores */
+  background: #E1F5EE;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.rv-card-body { flex: 1; min-width: 0; }
+
+.rv-card-title {
+  font-size: 15px; /* 20. AJUSTADO: Leitura otimizada */
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; /* Evita que títulos gigantes quebrem o design */
+}
+
+.rv-card-topic {
+  font-size: 13px; /* 21. AJUSTADO */
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.rv-card-date {
+  font-size: 12px; /* 22. AJUSTADO */
+  color: #aaa;
+}
+
+/* ESTADO VAZIO */
+.rv-empty {
+  text-align: center;
+  padding: 4rem 2rem; /* 23. AJUSTADO: Área vazia com muito mais presença */
+  color: #aaa;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE: Ajuste perfeito para Celulares
+   ========================================================================== */
+@media (max-width: 768px) { /* 24. AJUSTADO: Subido de 640px para 768px */
+  .rv-page { 
+    padding: 1.25rem 1.25rem 80px; /* Margem inferior para não cobrir o menu mobile do app */
+  }
+
+  .rv-header {
+    flex-direction: column; /* Coloca o título e o botão empilhados no celular */
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .rv-add-btn {
+    text-align: center; /* Centraliza o texto do botão quando ele vira bloco */
+  }
+
+  .rv-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rv-grid { 
+    grid-template-columns: 1fr; /* Força 1 coluna cheia em celulares menores */
+    gap: 12px;
+  }
+
+  .rv-card {
+    padding: 1.125rem 1.25rem; /* Ajusta levemente o card para caber em telas estreitas */
+  }
+}
