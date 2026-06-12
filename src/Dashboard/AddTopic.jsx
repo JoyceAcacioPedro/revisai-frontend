@@ -14,7 +14,7 @@ function AddTopic() {
     const fetchSubjects = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:8000/api/subject/', {
+        const response = await fetch('https://web-production-7d784.up.railway.app/api/subject/', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await response.json();
@@ -53,7 +53,7 @@ function AddTopic() {
 files.forEach((f) => formData.append('files', f));
 
     try {
-      const response = await fetch('http://localhost:8000/api/topics/', {
+      const response = await fetch('https://web-production-7d784.up.railway.app/api/topics/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

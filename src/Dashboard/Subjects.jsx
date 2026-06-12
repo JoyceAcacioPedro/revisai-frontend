@@ -20,8 +20,8 @@ function Subjects() {
   const fetchData = async () => {
     try {
       const [subjectsRes, topicsRes] = await Promise.all([
-        fetch('http://localhost:8000/api/subject/', { headers }),
-        fetch('http://localhost:8000/api/topics/', { headers }),
+        fetch('https://web-production-7d784.up.railway.app/api/subject/', { headers }),
+        fetch('https://web-production-7d784.up.railway.app/api/topics/', { headers }),
       ]);
       const subjectsData = await subjectsRes.json();
       const topicsData = await topicsRes.json();
@@ -44,7 +44,7 @@ function Subjects() {
 
   const handleDeleteSubject = async (subjectId) => {
     try {
-      await fetch(`http://localhost:8000/api/subject/${subjectId}/`, {
+      await fetch(`https://web-production-7d784.up.railway.app/api/subject/${subjectId}/`, {
         method: 'DELETE',
         headers,
       });
@@ -58,7 +58,7 @@ function Subjects() {
 
   const handleDeleteTopic = async (topicId) => {
     try {
-      await fetch(`http://localhost:8000/api/topics/${topicId}/`, {
+      await fetch(`https://web-production-7d784.up.railway.app/api/topics/${topicId}/`, {
         method: 'DELETE',
         headers,
       });

@@ -12,7 +12,7 @@ function Revisions() {
     const fetchRevisions = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:8000/api/reviews/pending/', {
+        const response = await fetch('https://web-production-7d784.up.railway.app/api/reviews/pending/', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();

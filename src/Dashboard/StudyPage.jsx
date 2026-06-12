@@ -139,7 +139,7 @@ function StudyPage() {
       const token = localStorage.getItem('token');
       try {
         const response = await fetch(
-          `http://localhost:8000/api/activities/${activityId}/study/${isEarly ? '?early=true' : ''}`,
+          `https://web-production-7d784.up.railway.app/api/activities/${activityId}/study/${isEarly ? '?early=true' : ''}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const result = await response.json();
@@ -163,7 +163,7 @@ function StudyPage() {
 
   const handleComplete = async () => {
     const token = localStorage.getItem('token');
-    await fetch(`http://localhost:8000/api/activities/${activityId}/complete/`, {
+    await fetch(`https://web-production-7d784.up.railway.app/api/activities/${activityId}/complete/`, {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${token}` },
     });

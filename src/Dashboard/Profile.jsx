@@ -10,7 +10,7 @@ function Profile() {
     async function loadProfile() {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:8000/api/profile/', {
+        const response = await fetch('https://web-production-7d784.up.railway.app/api/profile/', {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!response.ok) throw new Error('Failed');

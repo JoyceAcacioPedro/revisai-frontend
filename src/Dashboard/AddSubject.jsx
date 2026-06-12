@@ -16,7 +16,7 @@ function AddSubject() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/subject/", {
+      const response = await fetch("https://web-production-7d784.up.railway.app/api/subject/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

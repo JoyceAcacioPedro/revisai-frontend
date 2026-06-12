@@ -37,7 +37,7 @@ function SignUp() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/user/register/", {
+      const response = await fetch("https://web-production-7d784.up.railway.app/api/user/register/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
@@ -47,7 +47,7 @@ function SignUp() {
 
       if (response.ok) {
         // Envia o código de verificação
-        await fetch('http://localhost:8000/api/auth/send-code/', {
+        await fetch('https://web-production-7d784.up.railway.app/api/auth/send-code/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -97,7 +97,7 @@ function SignUp() {
 
             <button
               onClick={async () => {
-                const res = await fetch('http://localhost:8000/api/auth/verify/', {
+                const res = await fetch('https://web-production-7d784.up.railway.app/api/auth/verify/', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ email: verifyEmail, code }),
@@ -119,7 +119,7 @@ function SignUp() {
               <span
                 style={{ color: '#1D9E75', cursor: 'pointer', fontWeight: '500' }}
                 onClick={async () => {
-                  await fetch('http://localhost:8000/api/auth/send-code/', {
+                  await fetch('https://web-production-7d784.up.railway.app/api/auth/send-code/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: verifyEmail }),
