@@ -11,10 +11,24 @@ function Revisions() {
   useEffect(() => {
     const fetchRevisions = async () => {
       const token = localStorage.getItem('token');
+      // ✅ Correção: Base URL dinâmica
+      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+      
       try {
-        const response = await fetch('https://web-production-7d784.up.railway.app/api/reviews/pending/', {
-          headers: { Authorization: `Bearer ${token}` },
+        // Garante que esta rota '/api/reviews/pending/' existe exatamente assim no teu urls.py do Django
+        const response = await fetch(`${apiUrl}/api/reviews/pending/`, {
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+          },
         });
+        
+        if (response.status === 401) {
+          console.error("Token inválido ou expirado. Redirecionando...");
+          navigate('/login');
+          return;
+        }
+
         const data = await response.json();
         setRevisions(data);
       } catch (error) {
@@ -24,7 +38,7 @@ function Revisions() {
       }
     };
     fetchRevisions();
-  }, []);
+  }, [navigate]);
 
   const filtered = revisions.filter((r) => {
     const topicTitle = r.topic?.title || '';

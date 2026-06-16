@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import.meta.env.VITE_API_URL
 
 function Login() {
 
@@ -27,7 +28,10 @@ function Login() {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/user/login/", {
+      // ✅ Correção: Usa o link dinâmico da variável de ambiente ou o fallback local
+      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+      
+      const response = await fetch(`${apiUrl}/api/user/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,8 +43,7 @@ function Login() {
 
       if (response.ok) {
         alert("Login successful!");
-
-        // 🔐 padrão único
+        // 🔐 Armazena o token de acesso de forma correta
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", email.split('@')[0]);
 
