@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './SignUp.css';
 
+// 1. Variável declarada com fallback seguro para o Render
+const API_URL = import.meta.env.VITE_API_URL || "[https://revisai-backend-ifh7.onrender.com](https://revisai-backend-ifh7.onrender.com)";
+
 function SignUp() {
   const [f_name, setfName] = useState('');
   const [l_name, setlName] = useState('');
@@ -37,17 +40,22 @@ function SignUp() {
     };
 
     try {
-      const response = await fetch("${API_URL}/api/user/register/", {
+      // ✅ Corrigido: Uso de backticks para template literals
+      const response = await fetch(`${API_URL}/api/user/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type");
+      let data = {};
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      }
 
       if (response.ok) {
         // Envia o código de verificação
-        await fetch('${API_URL}/api/auth/send-code/', {
+        await fetch(`${API_URL}/api/auth/send-code/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -55,7 +63,7 @@ function SignUp() {
         setVerifyEmail(email);
         setStep('verify');
       } else {
-        alert("Error: " + (data.message || "Something went wrong"));
+        alert("Error: " + (data.message || data.detail || "Something went wrong"));
       }
 
     } catch (error) {
@@ -97,17 +105,22 @@ function SignUp() {
 
             <button
               onClick={async () => {
-                const res = await fetch('${API_URL}/api/auth/verify/', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ email: verifyEmail, code }),
-                });
-                const data = await res.json();
-                if (res.ok) {
-                  alert('Email verified! You can now login.');
-                  navigate('/login');
-                } else {
-                  alert('Invalid code. Please try again.');
+                try {
+                  // ✅ Corrigido: Uso de backticks
+                  const res = await fetch(`${API_URL}/api/auth/verify/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: verifyEmail, code }),
+                  });
+                  const data = await res.json();
+                  if (res.ok) {
+                    alert('Email verified! You can now login.');
+                    navigate('/login');
+                  } else {
+                    alert(data.message || 'Invalid code. Please try again.');
+                  }
+                } catch (err) {
+                  alert('Error verifying code. Try again.');
                 }
               }}
             >
@@ -119,12 +132,17 @@ function SignUp() {
               <span
                 style={{ color: '#1D9E75', cursor: 'pointer', fontWeight: '500' }}
                 onClick={async () => {
-                  await fetch('${API_URL}/api/auth/send-code/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: verifyEmail }),
-                  });
-                  alert('Code resent!');
+                  try {
+                    // ✅ Corrigido: Uso de backticks
+                    await fetch(`${API_URL}/api/auth/send-code/`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email: verifyEmail }),
+                    });
+                    alert('Code resent!');
+                  } catch (err) {
+                    alert('Failed to resend code.');
+                  }
                 }}
               >
                 Resend
