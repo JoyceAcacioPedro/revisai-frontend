@@ -17,60 +17,68 @@ function SignUp() {
   const [code, setCode] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (password.length < 8) {
-      alert("Password must have at least 8 characters.");
-      return;
+  if (password.length < 8) {
+    alert("Password must have at least 8 characters.");
+    return;
+  }
+
+  if (password !== confirm_password) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  const userData = {
+    username: email,
+    first_name: f_name,
+    last_name: l_name,
+    email: email,
+    country: country,
+    password: password,
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/api/user/register/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
+
+    const contentType = response.headers.get("content-type");
+    let data = {};
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
     }
 
-    if (password !== confirm_password) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    const userData = {
-      username: email,
-      first_name: f_name,
-      last_name: l_name,
-      email: email,
-      country: country,
-      password: password,
-    };
-
-    try {
-      // ✅ Corrigido: Uso de backticks para template literals
-      const response = await fetch(`${API_URL}/api/user/register/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
-
-      const contentType = response.headers.get("content-type");
-      let data = {};
-      if (contentType && contentType.includes("application/json")) {
-        data = await response.json();
-      }
-
-      if (response.ok) {
-        // Envia o código de verificação
-        await fetch(`${API_URL}/api/auth/send-code/`, {
+    if (response.ok) {
+      // Tenta enviar o código de verificação tratando possíveis falhas do servidor de e-mail (Erro 500)
+      try {
+        const sendCodeRes = await fetch(`${API_URL}/api/auth/send-code/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        setVerifyEmail(email);
-        setStep('verify');
-      } else {
-        alert("Error: " + (data.message || data.detail || "Something went wrong"));
-      }
 
-    } catch (error) {
-      console.error("Server error:", error);
-      alert("Unable to connect to the server.");
+        if (sendCodeRes.ok) {
+          setVerifyEmail(email);
+          setStep('verify');
+        } else {
+          alert("Conta criada com sucesso, mas ocorreu uma falha ao enviar o e-mail de verificação (Erro no servidor de email).");
+        }
+      } catch (err) {
+        alert("Erro ao conectar ao serviço de e-mail.");
+      }
+    } else {
+      alert("Error: " + (data.message || data.detail || "Something went wrong"));
     }
-  };
+
+  } catch (error) {
+    console.error("Server error:", error);
+    alert("Unable to connect to the server.");
+  }
+};
 
   // ── PASSO 2: VERIFICAÇÃO ─────────────────────────────
   if (step === 'verify') {
