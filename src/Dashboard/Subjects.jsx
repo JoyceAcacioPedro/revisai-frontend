@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Subjects.css';
 
+// Centralizado fora do componente com o fallback para o Render
+const API_URL = import.meta.env.VITE_API_URL || "https://revisai-backend-ifh7.onrender.com";
+
 function Subjects() {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,9 +22,10 @@ function Subjects() {
 
   const fetchData = async () => {
     try {
+      // ✅ Corrigido: Usando backticks (`) em vez de aspas simples (')
       const [subjectsRes, topicsRes] = await Promise.all([
-        fetch('https://web-production-7d784.up.railway.app/api/subject/', { headers }),
-        fetch('https://web-production-7d784.up.railway.app/api/topics/', { headers }),
+        fetch(`${API_URL}/api/subject/`, { headers }),
+        fetch(`${API_URL}/api/topics/`, { headers }),
       ]);
       const subjectsData = await subjectsRes.json();
       const topicsData = await topicsRes.json();
@@ -44,7 +48,8 @@ function Subjects() {
 
   const handleDeleteSubject = async (subjectId) => {
     try {
-      await fetch(`https://web-production-7d784.up.railway.app/api/subject/${subjectId}/`, {
+      // ✅ Corrigido para API_URL
+      await fetch(`${API_URL}/api/subject/${subjectId}/`, {
         method: 'DELETE',
         headers,
       });
@@ -58,7 +63,8 @@ function Subjects() {
 
   const handleDeleteTopic = async (topicId) => {
     try {
-      await fetch(`https://web-production-7d784.up.railway.app/api/topics/${topicId}/`, {
+      // ✅ Corrigido para API_URL
+      await fetch(`${API_URL}/api/topics/${topicId}/`, {
         method: 'DELETE',
         headers,
       });

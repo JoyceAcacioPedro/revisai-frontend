@@ -11,8 +11,8 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const [subjectsRes, progressRes] = await Promise.all([
-        fetch('https://web-production-7d784.up.railway.app/api/subject/', { headers }),
-        fetch('https://web-production-7d784.up.railway.app/api/progress/', { headers }),
+        fetch('${API_URL}/api/subject/', { headers }),
+        fetch('${API_URL}/api/progress/', { headers }),
       ]);
 
       const subjectsData = await subjectsRes.json();
@@ -22,7 +22,7 @@ useEffect(() => {
       // Precisamos calcular a média por subject
 
       // Busca os topics para saber a que subject pertencem
-      const topicsRes = await fetch('https://web-production-7d784.up.railway.app/api/topics/', { headers });
+      const topicsRes = await fetch('${API_URL}/api/topics/', { headers });
       const topicsData = await topicsRes.json();
 
       // Calcula progresso por subject

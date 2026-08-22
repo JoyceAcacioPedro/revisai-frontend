@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import './StudyPage.css';
 
+// Centralizado fora do componente com o fallback para o Render
+const API_URL = import.meta.env.VITE_API_URL || "https://revisai-backend-ifh7.onrender.com";
+
 // ── FLASHCARDS ──────────────────────────────────────────
 function FlashcardView({ flashcards, onComplete }) {
   const [index, setIndex] = useState(0);
@@ -138,15 +141,15 @@ function StudyPage() {
     const fetchStudy = async () => {
       const token = localStorage.getItem('token');
       try {
+        // Atualizado para API_URL
         const response = await fetch(
-          `https://web-production-7d784.up.railway.app/api/activities/${activityId}/study/${isEarly ? '?early=true' : ''}`,
+          `${API_URL}/api/activities/${activityId}/study/${isEarly ? '?early=true' : ''}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const result = await response.json();
         if (!response.ok) {
           setError(result);
         } else {
-          // ← Normaliza type se vier como array
           if (Array.isArray(result.type)) {
             result.type = result.type[0];
           }
@@ -163,7 +166,8 @@ function StudyPage() {
 
   const handleComplete = async () => {
     const token = localStorage.getItem('token');
-    await fetch(`https://web-production-7d784.up.railway.app/api/activities/${activityId}/complete/`, {
+    // Atualizado para API_URL
+    await fetch(`${API_URL}/api/activities/${activityId}/complete/`, {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -195,7 +199,6 @@ function StudyPage() {
     </div>
   );
 
-  // Normaliza o type para comparação
   const activityType = Array.isArray(data.type) ? data.type[0] : data.type;
 
   return (

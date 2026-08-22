@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Revisions.css';
 
+// Centralizado fora do componente com o fallback direto para o Render
+const API_URL = import.meta.env.VITE_API_URL || "https://revisai-backend-ifh7.onrender.com";
+
 function Revisions() {
   const [search, setSearch] = useState('');
   const [revisions, setRevisions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // ← aqui dentro do componente
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRevisions = async () => {
       const token = localStorage.getItem('token');
-      // ✅ Correção: Base URL dinâmica
-      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
       
       try {
-        // Garante que esta rota '/api/reviews/pending/' existe exatamente assim no teu urls.py do Django
-        const response = await fetch(`${apiUrl}/api/reviews/pending/`, {
+        const response = await fetch(`${API_URL}/api/reviews/pending/`, {
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}` 
@@ -37,6 +37,7 @@ function Revisions() {
         setLoading(false);
       }
     };
+
     fetchRevisions();
   }, [navigate]);
 

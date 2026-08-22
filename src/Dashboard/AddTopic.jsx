@@ -14,7 +14,7 @@ function AddTopic() {
     const fetchSubjects = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('https://web-production-7d784.up.railway.app/api/subject/', {
+        const response = await fetch('${API_URL}/api/subject/', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await response.json();

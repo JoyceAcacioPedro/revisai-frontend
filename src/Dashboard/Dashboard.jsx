@@ -13,7 +13,7 @@ function Dashboard() {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('https://web-production-7d784.up.railway.app/api/profile/', {
+        const res = await fetch('${API_URL}/api/profile/', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
