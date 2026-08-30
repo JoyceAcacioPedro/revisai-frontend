@@ -1,16 +1,131 @@
-# React + Vite
+# RevisAI — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**AI-powered study platform frontend**  
+Built with React · Vite · JavaScript · CSS
 
-Currently, two official plugins are available:
+Live: [revisai-iota.vercel.app](https://revisai-iota.vercel.app)  
+Backend repository: [revisai-backend](https://github.com/JoyceAcacioPedro/revisai-backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## What It Does
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+RevisAI is a productivity platform that uses AI to help 
+students organise and optimise their study schedules.
 
-## Expanding the ESLint configuration
+This repository contains the full frontend — routing, 
+authentication flow, dashboard, and all user-facing features.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Architecture
+
+React (Vite) → REST API (Django Backend on Render)
+↓
+JWT Authentication — token stored and managed client-side
+↓
+Axios — all API calls with baseURL from environment variable
+
+
+
+## Tech Stack
+
+Framework: React · Vite
+Routing: React Router DOM
+HTTP Client: Axios
+Auth: JWT — stored and sent on every request
+Styling: CSS Modules
+Deployment: Vercel
+
+
+
+## Key Features
+
+- Email-based login and registration
+- JWT authentication — token management client-side
+- Protected routes — dashboard only accessible when logged in
+- Subject and topic management
+- Revision scheduling interface
+- Progress tracking dashboard
+- Responsive UI
+
+
+## Pages & Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Landing page |
+| `/login` | Login with email and password |
+| `/signup` | Register new account |
+| `/dashboard` | Main user dashboard |
+| `/revisions` | Manage revisions |
+| `/progress` | Track study progress |
+| `/addrevisions` | Add new revision |
+| `/addsubject` | Add new subject |
+| `/addtopic` | Add new topic |
+| `/profile` | User profile |
+
+---
+
+## Environment Variables
+
+```env
+VITE_API_URL=https://revisai-backend-ifh7.onrender.com/api
+```
+
+> Important: always use the environment variable for the API URL.
+> Never hardcode localhost in production.
+
+
+## Local Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/JoyceAcacioPedro/revisai-frontend
+
+# Install dependencies
+npm install
+
+# Create .env file
+echo "VITE_API_URL=http://127.0.0.1:8000/api" > .env
+
+# Start development server
+npm run dev
+```
+
+
+## Deployment
+
+Frontend deployed on **Vercel**.
+
+`vercel.json` configured to handle client-side routing:
+
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
+```
+
+> Without this configuration, direct URL access to any 
+> route returns 404 on Vercel.
+
+
+## Engineering Notes
+
+This project was built solo — from requirements to production.
+
+Key challenges solved:
+
+- Frontend calling `http://127.0.0.1:8000` in production —
+  solved by setting `VITE_API_URL` as a Vercel 
+  environment variable pointing to the Render backend
+- Client-side routing returning 404 on direct URL access —
+  solved with `vercel.json` rewrite rules
+- CORS errors caused by backend crashing —
+  root cause was SMTP blocking on Render, 
+  not a frontend issue
+
+
+*Software Engineer — Applied AI & Full Stack*  
+[LinkedIn](https://www.linkedin.com/in/joyceacaciopedro) ·
+[Twitter/X](https://x.com/Joyceap2005)
